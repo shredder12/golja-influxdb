@@ -1,5 +1,6 @@
 class influxdb::params {
   $version                                      = '0.9.4'
+  $cfg                                          = {}
   $ensure                                       = 'present'
   $service_enabled                              = true
   $bind_address                                 = ':8088'

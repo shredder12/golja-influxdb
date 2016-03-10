@@ -66,10 +66,11 @@ class influxdb::server::config {
   $influxdb_stderr_log                          = $influxdb::server::influxdb_stderr_log
   $influxdb_stdout_log                          = $influxdb::server::influxdb_stdout_log
   $influxd_opts                                 = $influxdb::server::influxd_opts
+  $influxd_cfg                                  = $influxdb::server::cfg
 
   file { $config_file:
     ensure  => $ensure,
-    content => template($conf_template),
+    content => inline_template("<%= require 'toml'; TOML::Generator.new(@influxd_cfg).body %>\n"),
     owner   => $influxdb_user,
     group   => $influxdb_group,
     mode    => '0644',
